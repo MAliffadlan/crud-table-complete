@@ -93,3 +93,9 @@ app/Views       -> UI (Bootstrap 5)
 public/uploads  -> Foto mahasiswa
 ```
 
+👨‍💻 Author
+
+Dibuat dengan ❤️ oleh M Alif fadlan.
+Project ini dibuat untuk keperluan tugas mata kuliah Web Programming.
+
+Jangan lupa kasih ⭐️ (Star) jika project ini bermanfaat!

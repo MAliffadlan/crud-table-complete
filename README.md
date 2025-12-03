@@ -4,7 +4,13 @@ Aplikasi **Sistem Informasi Mahasiswa** sederhana namun powerful, dibangun mengg
 
 >
 >
-> ![App Preview](https://your-image-link-here.png)
+> <img width="1895" height="940" alt="Screenshot 2025-12-03 141059" src="https://github.com/user-attachments/assets/6db3a36e-8477-48f2-8a6f-7da75326a676" />
+
+>![Screenshot_3-12-2025_14859_localhost](https://github.com/user-attachments/assets/1ca3a5f6-b61e-446a-b1b0-885016d56510)
+>![Screenshot_3-12-2025_14947_localhost](https://github.com/user-attachments/assets/41802458-d5a6-4e18-8e66-72b06b460711)
+
+
+
 
 ---
 
@@ -87,3 +93,9 @@ app/Views       -> UI (Bootstrap 5)
 public/uploads  -> Foto mahasiswa
 ```
 
+👨‍💻 Author
+
+Dibuat dengan ❤️ oleh M Alif fadlan.
+Project ini dibuat untuk keperluan tugas mata kuliah Web Programming.
+
+Jangan lupa kasih ⭐️ (Star) jika project ini bermanfaat!

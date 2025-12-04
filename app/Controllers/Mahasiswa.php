@@ -8,13 +8,9 @@ class Mahasiswa extends BaseController
     public function index()
     {
         $model = new MahasiswaModel();
-        
-        // 1. Tangkap kata kunci pencarian
         $keyword = $this->request->getVar('keyword');
 
         if ($keyword) {
-            // Cari berdasarkan nama ATAU nim
-            // Kita pakai grouping biar query-nya aman
             $model->groupStart()
                   ->like('nama', $keyword)
                   ->orLike('nim', $keyword)

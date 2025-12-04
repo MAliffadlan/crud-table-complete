@@ -14,6 +14,9 @@ $routes->get('/logout', 'AuthController::logout');
 $routes->post('/settings/updateProfile', 'Settings::updateProfile');
 $routes->get('/settings/backupDB', 'Settings::backupDB');
 
+$routes->get('/register', 'AuthController::register');
+$routes->post('/register/process', 'AuthController::registerProcess');
+
 
 $routes->group('', ['filter' => 'authGuard'], function($routes) {
     $routes->get('/dashboard', 'Dashboard::index');

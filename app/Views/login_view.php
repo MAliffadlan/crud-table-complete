@@ -31,6 +31,10 @@
                             <input type="password" name="password" class="form-control" required>
                         </div>
                         <button type="submit" class="btn btn-primary w-100 py-2">Masuk Sekarang</button>
+                        <!-- Di file login_view.php, di bawah tombol submit -->
+<div class="text-center mt-3">
+    <small>Belum punya akun? <a href="/register" class="text-decoration-none fw-bold">Daftar disini</a></small>
+</div>
                     </form>
                 </div>
             </div>

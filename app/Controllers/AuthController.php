@@ -46,6 +46,59 @@ class AuthController extends BaseController
         return redirect()->to('/login');
     }
 
+// --- FITUR REGISTER (TAMBAHAN) ---
+
+    public function register()
+    {
+        return view('register_view');
+    }
+
+    public function registerProcess()
+    {
+        // 1. Validasi Input
+        if (!$this->validate([
+            'name' => [
+                'rules'  => 'required',
+                'errors' => ['required' => 'Nama Lengkap wajib diisi.']
+            ],
+            'username' => [
+                'rules'  => 'required|is_unique[users.username]', // Cek biar gak kembar
+                'errors' => [
+                    'required' => 'Username wajib diisi.',
+                    'is_unique' => 'Username sudah dipakai orang lain.'
+                ]
+            ],
+            'password' => [
+                'rules'  => 'required|min_length[4]',
+                'errors' => [
+                    'required' => 'Password wajib diisi.',
+                    'min_length' => 'Password minimal 4 karakter.'
+                ]
+            ],
+            'confpassword' => [
+                'rules'  => 'matches[password]',
+                'errors' => ['matches' => 'Konfirmasi password tidak cocok.']
+            ]
+        ])) {
+            // Kalau gagal, balik lagi ke form register bawa pesan error
+            return redirect()->back()->withInput();
+        }
+
+        // 2. Simpan ke Database
+        $model = new UserModel();
+        $model->save([
+            'name'     => $this->request->getVar('name'),
+            'username' => $this->request->getVar('username'),
+            // PENTING: Password wajib di-hash biar aman!
+            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+            'foto'     => 'default.png' // Foto default
+        ]);
+
+        // 3. Sukses, lempar ke halaman login
+        session()->setFlashdata('msg', 'Registrasi Berhasil! Silakan Login.');
+        return redirect()->to('/login');
+    }
+
     public function profile()
     {
         $session = session();

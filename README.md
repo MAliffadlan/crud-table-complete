@@ -51,7 +51,7 @@ Ikuti langkah-langkah untuk menjalankan project di Laragon.
 ### 1️⃣ Clone Repository
 ```bash
 git clone https://github.com/MAliffadlan/crud-table-complete.git
-cd portal-ci4
+cd crud-table-complete
 ```
 ### 2️⃣ Install Dependencies
 ```bash

@@ -4,14 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Data Mahasiswa</title>
+    
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">  
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
     <style>
         body { 
             background-color: #f4f6f9; 
             font-family: 'Segoe UI', sans-serif;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+        
+        /* --- CSS SIDEBAR (Gaya IG) --- */
         .sidebar {
             position: fixed; top: 0; left: 0; height: 100vh; width: 250px;
             background-color: white; 
@@ -53,6 +59,7 @@
         .nav-link-ig:hover i { transform: scale(1.1); }
         .nav-link-ig span { font-size: 16px; }
 
+        /* --- DARK MODE OVERRIDES --- */
         [data-bs-theme="dark"] body {
             background-color: #121212;
             color: #e0e0e0;
@@ -67,21 +74,25 @@
         [data-bs-theme="dark"] .nav-link-ig:hover { background-color: #2c2c2c; color: #fff; }
         [data-bs-theme="dark"] .nav-link-ig.active { background-color: #333; color: #4e73df; }
         
+        /* Card & Content Dark Mode */
         [data-bs-theme="dark"] .bg-white { background-color: #1e1e1e !important; color: #fff; }
         [data-bs-theme="dark"] .bg-light { background-color: #2c2c2c !important; color: #fff; border-color: #444 !important; }
         [data-bs-theme="dark"] .text-dark { color: #fff !important; }
         [data-bs-theme="dark"] .text-muted { color: #aaa !important; }
         [data-bs-theme="dark"] .text-secondary { color: #bbb !important; }
-        [data-bs-theme="dark"] .card { border-color: #333; }
+        [data-bs-theme="dark"] .card { border-color: #333; background-color: #1e1e1e; }
         
+        /* Table Dark Mode */
         [data-bs-theme="dark"] .table-light th { background-color: #2c2c2c; color: #fff; border-color: #444; }
         [data-bs-theme="dark"] .table { color: #e0e0e0; border-color: #444; }
         [data-bs-theme="dark"] .table-hover tbody tr:hover { color: #fff; background-color: #333; }
         
-        [data-bs-theme="dark"] .form-control { background-color: #2c2c2c; border-color: #444; color: #fff; }
+        /* Form Inputs Dark Mode */
+        [data-bs-theme="dark"] .form-control, [data-bs-theme="dark"] .form-select { background-color: #2c2c2c; border-color: #444; color: #fff; }
         [data-bs-theme="dark"] .input-group-text { background-color: #2c2c2c; border-color: #444; }
         [data-bs-theme="dark"] .input-group-text i { color: #aaa !important; }
         
+        /* Pagination Dark Mode */
         [data-bs-theme="dark"] .page-link { background-color: #1e1e1e; border-color: #444; color: #fff; }
         [data-bs-theme="dark"] .page-item.disabled .page-link { background-color: #2c2c2c; border-color: #444; }
         [data-bs-theme="dark"] .page-item.active .page-link { background-color: #0d6efd; border-color: #0d6efd; }
@@ -95,6 +106,7 @@
             .nav-link-ig i { margin-right: 0; }
         }
 
+        /* --- CSS KHUSUS FOTO PROFIL --- */
         .foto-profil {
             transition: transform 0.3s ease;
             cursor: pointer;
@@ -105,6 +117,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
+        /* --- ANIMASI MASUK --- */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -116,22 +129,26 @@
 </head>
 <body>
 
+    <!-- 1. SIDEBAR KIRI -->
     <div class="sidebar">
         <a href="/dashboard" class="logo-app">
-            <i class="bi bi-mortarboard-fill me-2 text-primary"></i> <span>FADLAN APP</span>
+            <!-- Logo Merah sesuai request -->
+            <i class="bi bi-database-fill-gear me-2 text-danger"></i> <span>PORTAL APP</span>
         </a>
         
         <a href="/dashboard" class="nav-link-ig">
             <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
         </a>
         
-        <a href="/mahasiswa" class="nav-link-ig active"> 
+        <a href="/mahasiswa" class="nav-link-ig active"> <!-- CLASS ACTIVE DISINI -->
             <i class="bi bi-people-fill"></i> <span>Data Mahasiswa</span>
         </a>
         
         <a href="/settings" class="nav-link-ig">
-            <i class="bi bi-gear"></i> <span>Pengaturan</span>
+            <i class="bi bi-gear-fill"></i> <span>Pengaturan</span>
         </a>
+
+        <!-- Tombol Dark Mode -->
         <div class="nav-link-ig mt-3" onclick="toggleTheme()" id="themeToggleBtn">
             <i class="bi bi-moon-stars-fill" id="iconTheme"></i> 
             <span id="textTheme">Mode Gelap</span>
@@ -144,19 +161,38 @@
         </div>
     </div>
 
+    <!-- 2. KONTEN UTAMA (Kanan) -->
     <div class="content-wrapper">
         <div class="container" style="max-width: 1200px;">
             
             <h3 class="fw-bold mb-4">Kelola Data Mahasiswa</h3>
+
+            <!-- Card Utama -->
             <div class="card border-0 shadow-sm rounded-4 bg-white card-animasi">
                 <div class="card-header bg-transparent border-0 pt-4 px-4 d-flex justify-content-between align-items-center">
-                    <form action="" method="get" class="w-50">
+                    
+                    <!-- Form Filter & Pencarian Gabungan -->
+                    <form action="" method="get" class="d-flex w-75 gap-2">
+                        <!-- DROPDOWN FILTER JURUSAN (BARU) -->
+                        <div class="input-group w-50">
+                            <span class="input-group-text bg-light border-0"><i class="bi bi-funnel text-muted"></i></span>
+                            <select class="form-select bg-light border-0" name="jurusan" onchange="this.form.submit()">
+                                <option value="">Pilih Jurusan</option>
+                                <option value="Teknik Informatika" <?= ($jurusan == 'Teknik Informatika') ? 'selected' : ''; ?>>Teknik Informatika</option>
+                                <option value="Sistem Informasi" <?= ($jurusan == 'Sistem Informasi') ? 'selected' : ''; ?>>Sistem Informasi</option>
+                                <option value="Manajemen Bisnis" <?= ($jurusan == 'Manajemen Bisnis') ? 'selected' : ''; ?>>Manajemen Bisnis</option>
+                            </select>
+                        </div>
+
+                        <!-- Kolom Pencarian -->
                         <div class="input-group">
                             <span class="input-group-text bg-light border-0"><i class="bi bi-search text-muted"></i></span>
-                            <input type="text" class="form-control bg-light border-0" name="keyword" placeholder="Cari nama atau NIM..." value="<?= $keyword; ?>">
+                            <input type="text" class="form-control bg-light border-0" name="keyword" placeholder="Cari nama / NIM..." value="<?= $keyword; ?>">
                             <button class="btn btn-primary rounded-end" type="submit">Cari</button>
                         </div>
                     </form>
+                    
+                    <!-- Tombol Tambah Data -->
                     <div>
                         <a href="/mahasiswa/create" class="btn btn-primary rounded-pill px-4 fw-bold">
                             <i class="bi bi-plus-lg me-1"></i> Tambah Data
@@ -165,6 +201,8 @@
                 </div>
                 
                 <div class="card-body p-4">
+                    
+                    <!-- Tabel Data -->
                     <div class="table-responsive">
                         <table class="table table-hover align-middle">
                             <thead class="table-light">
@@ -180,6 +218,7 @@
                             <tbody>
                                 <?php foreach($mahasiswa as $m): ?>
                                     
+                                    <!-- Logika Warna Badge -->
                                     <?php 
                                         $warnaBadge = 'bg-secondary';
                                         if($m['jurusan'] == 'Teknik Informatika') $warnaBadge = 'bg-primary';
@@ -189,6 +228,7 @@
 
                                 <tr>
                                     <td>
+                                        <!-- Foto Zoom -->
                                         <img src="/uploads/<?= $m['foto']; ?>" 
                                              class="rounded-circle border foto-profil" 
                                              width="50" height="50" 
@@ -204,12 +244,17 @@
                                     </td>
                                     <td><small><?= $m['no_hp']; ?></small></td>
                                     <td>
+                                        <!-- Tombol KTM (Biru Muda) -->
                                         <a href="/mahasiswa/printKTM/<?= $m['id']; ?>" target="_blank" class="btn btn-info btn-sm rounded-circle text-white me-1" title="Cetak KTM">
                                             <i class="bi bi-person-badge-fill"></i>
                                         </a>
+
+                                        <!-- Tombol Edit (Kuning) -->
                                         <a href="/mahasiswa/edit/<?= $m['id']; ?>" class="btn btn-warning btn-sm text-dark me-1 rounded-circle" title="Edit">
                                             <i class="bi bi-pencil-fill"></i>
                                         </a>
+
+                                        <!-- Tombol Hapus (Merah) -->
                                         <a href="/mahasiswa/delete/<?= $m['id']; ?>" 
                                            class="btn btn-danger btn-sm btn-hapus rounded-circle"
                                            title="Hapus">
@@ -219,6 +264,7 @@
                                 </tr>
                                 <?php endforeach; ?>
                                 
+                                <!-- Pesan Kosong -->
                                 <?php if(empty($mahasiswa)): ?>
                                 <tr>
                                     <td colspan="6" class="text-center text-muted py-5">
@@ -230,27 +276,79 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <!-- Pagination -->
                     <div class="d-flex justify-content-center mt-4">
                         <?= $pager->links('mahasiswa', 'default_full') ?>
                     </div>
 
                 </div>
             </div>
+
+            <!-- Footer -->
             <footer class="text-center text-muted py-4 mt-5 border-top">
                 <small>
-                    &copy; <?= date('Y'); ?> <b>Portal Mahasiswa</b>. Dibuat dengan 🔥 M Alif fadlan
+                    &copy; <?= date('Y'); ?> <b>Portal Mahasiswa</b>. Dibuat dengan 🔥 CodeIgniter 4 & Bootstrap 5.
                 </small>
             </footer>
 
         </div>
     </div>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        // --- KONFIGURASI TOAST (NOTIFIKASI BARU) ---
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end', // Pojok Kanan Atas
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        // Tampilkan Toast kalau ada pesan dari Controller
+        <?php if (session()->getFlashdata('pesan')) : ?>
+            Toast.fire({
+                icon: 'success',
+                title: '<?= session()->getFlashdata('pesan'); ?>'
+            })
+        <?php endif; ?>
+
+        // --- Logic Hapus Data (Tetap Pop-up Konfirmasi) ---
+        const btnHapus = document.querySelectorAll('.btn-hapus');
+        btnHapus.forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                Swal.fire({
+                    title: 'Yakin hapus data?',
+                    text: "Data yang dihapus tidak bisa dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.location.href = href;
+                    }
+                });
+            });
+        });
+
+        // --- Logic Dark Mode ---
         const html = document.getElementById('htmlPage');
         const icon = document.getElementById('iconTheme');
         const text = document.getElementById('textTheme');
+        
         if(localStorage.getItem('theme') === 'dark') {
             setDarkMode(true);
         } else {
@@ -282,37 +380,6 @@
                 text.innerText = "Mode Gelap";
             }
         }
-        <?php if (session()->getFlashdata('pesan')) : ?>
-            Swal.fire({
-                title: 'Berhasil!',
-                text: '<?= session()->getFlashdata('pesan'); ?>',
-                icon: 'success',
-                confirmButtonText: 'Oke',
-                timer: 2500
-            });
-        <?php endif; ?>
-
-        const btnHapus = document.querySelectorAll('.btn-hapus');
-        btnHapus.forEach(btn => {
-            btn.addEventListener('click', function (e) {
-                e.preventDefault();
-                const href = this.getAttribute('href');
-                Swal.fire({
-                    title: 'Yakin hapus data?',
-                    text: "Data yang dihapus tidak bisa dikembalikan!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Ya, Hapus!',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.location.href = href;
-                    }
-                });
-            });
-        });
     </script>
 </body>
 </html>

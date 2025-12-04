@@ -8,8 +8,12 @@ class Mahasiswa extends BaseController
     public function index()
     {
         $model = new MahasiswaModel();
+        
+        // 1. Ambil Keyword Pencarian & Filter Jurusan
         $keyword = $this->request->getVar('keyword');
+        $jurusan = $this->request->getVar('jurusan'); // <--- INI BARU
 
+        // 2. Logic Pencarian (Search)
         if ($keyword) {
             $model->groupStart()
                   ->like('nama', $keyword)
@@ -17,9 +21,17 @@ class Mahasiswa extends BaseController
                   ->groupEnd();
         }
 
+        // 3. Logic Filter Jurusan (Filter) <--- INI BARU
+        if ($jurusan) {
+            $model->where('jurusan', $jurusan);
+        }
+
+        // Urutkan Abjad
         $model->orderBy('nama', 'ASC');
+        
         $data = [
             'keyword' => $keyword,
+            'jurusan' => $jurusan, // Kirim balik ke view biar dropdown gak reset
             'mahasiswa' => $model->paginate(5, 'mahasiswa'), 
             'pager' => $model->pager 
         ];

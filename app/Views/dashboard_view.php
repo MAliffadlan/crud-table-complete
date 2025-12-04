@@ -30,6 +30,27 @@
             font-family: 'Poppins', sans-serif;
         }
         
+        /* Preloader Styles */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--bg-light);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+        .spinner-custom {
+            width: 3rem; height: 3rem;
+            border: 4px solid #e0e0e0;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Sidebar Styles */
         .sidebar {
             position: fixed;
             top: 0; left: 0; height: 100vh; width: 250px;
@@ -87,13 +108,41 @@
             box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
         }
 
+        /* Profile Dropdown Styles */
         .profile-header {
             background: white;
-            padding: 8px 16px 8px 8px;
+            padding: 6px 12px 6px 6px;
             border-radius: 50px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
             border: 1px solid rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
+        .profile-header:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-1px);
+        }
+        .dropdown-menu-custom {
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            padding: 10px;
+            margin-top: 10px !important;
+        }
+        .dropdown-item {
+            border-radius: 8px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .dropdown-item:hover {
+            background-color: #f8f9fc;
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+        .dropdown-item.text-danger:hover {
+            background-color: #fff5f5;
+            color: #dc3545 !important;
         }
 
         /* Pulse Animation for Online Status */
@@ -113,6 +162,7 @@
 
         /* Dark Mode Overrides */
         [data-bs-theme="dark"] body { background-color: #121212; color: #e0e0e0; }
+        [data-bs-theme="dark"] #preloader { background-color: #121212; }
         [data-bs-theme="dark"] .sidebar { background-color: #1e1e1e; box-shadow: 2px 0 20px rgba(0,0,0,0.2); border-right: 1px solid #333; }
         [data-bs-theme="dark"] .logo-app { color: #fff; }
         [data-bs-theme="dark"] .nav-link-ig { color: #b0b0b0; }
@@ -120,6 +170,9 @@
         [data-bs-theme="dark"] .nav-link-ig.active { color: white; background: linear-gradient(45deg, #3751a0, #1a369c); }
         [data-bs-theme="dark"] .card-estetik { background-color: #1e1e1e; color: #fff; box-shadow: none; border: 1px solid #333; }
         [data-bs-theme="dark"] .profile-header { background-color: #1e1e1e; box-shadow: none; border: 1px solid #333; }
+        [data-bs-theme="dark"] .dropdown-menu-custom { background-color: #1e1e1e; border: 1px solid #333; }
+        [data-bs-theme="dark"] .dropdown-item { color: #e0e0e0; }
+        [data-bs-theme="dark"] .dropdown-item:hover { background-color: #2c2c2c; color: #fff; }
         [data-bs-theme="dark"] .text-dark { color: #fff !important; }
         [data-bs-theme="dark"] .text-muted { color: #888 !important; }
         [data-bs-theme="dark"] h3 { color: #fff !important; }
@@ -135,6 +188,12 @@
     </style>
 </head>
 <body>
+    
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner-custom"></div>
+    </div>
+
     <div class="sidebar">
         <a href="/dashboard" class="logo-app">
             <i class="bi bi-mortarboard-fill me-2 fs-3"></i> <span>FADLAN APP</span>
@@ -170,14 +229,24 @@
                     <h3 class="fw-bold mb-1 text-dark" id="greetingText">Dashboard Overview</h3>
                     <p class="text-muted mb-0">Selamat datang kembali di panel admin.</p>
                 </div>
-                <div class="d-flex align-items-center profile-header">
-                    <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-2 text-primary">
-                        <i class="bi bi-person-fill fs-5"></i>
+                
+                <!-- Profil Dropdown -->
+                <div class="dropdown">
+                    <div class="d-flex align-items-center profile-header" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-2 text-primary">
+                            <i class="bi bi-person-fill fs-5"></i>
+                        </div>
+                        <div class="pe-2 d-none d-md-block">
+                            <span class="fw-bold text-dark d-block" style="font-size: 0.9rem; line-height: 1;"><?= session()->get('name'); ?></span>
+                            <small class="text-muted" style="font-size: 0.75rem;">Administrator</small>
+                        </div>
+                        <i class="bi bi-chevron-down ms-2 text-muted" style="font-size: 0.8rem;"></i>
                     </div>
-                    <div class="pe-2">
-                        <span class="fw-bold text-dark d-block" style="font-size: 0.9rem; line-height: 1;"><?= session()->get('name'); ?></span>
-                        <small class="text-muted" style="font-size: 0.75rem;">Administrator</small>
-                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-custom">
+                        <li><a class="dropdown-item" href="/settings"><i class="bi bi-gear me-2"></i> Pengaturan Akun</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+                    </ul>
                 </div>
             </div>
 
@@ -244,15 +313,29 @@
         </div>
     </div>
 
+    <!-- Bootstrap Bundle JS (Wajib untuk Dropdown) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Greeting Script
+        // Preloader Script
+        window.addEventListener("load", function () {
+            var preloader = document.getElementById("preloader");
+            preloader.style.opacity = "0";
+            setTimeout(function () {
+                preloader.style.visibility = "hidden";
+            }, 500);
+        });
+
+        // Greeting Script (SUDAH DI-UPDATE SESUAI REQUEST)
         const hour = new Date().getHours();
         const greetingElement = document.getElementById('greetingText');
+        const userName = "<?= session()->get('name'); ?>"; // Mengambil nama dari session PHP
+        
         let greeting = 'Dashboard Overview';
-        if (hour < 12) greeting = 'Selamat Pagi, Admin!';
-        else if (hour < 18) greeting = 'Selamat Siang, Admin!';
-        else greeting = 'Selamat Malam, Admin!';
+        if (hour < 12) greeting = 'Selamat Pagi, ' + userName + '!';
+        else if (hour < 18) greeting = 'Selamat Siang, ' + userName + '!';
+        else greeting = 'Selamat Malam, ' + userName + '!';
+        
         greetingElement.innerText = greeting;
 
         // Chart Data

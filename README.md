@@ -50,7 +50,7 @@ Ikuti langkah-langkah untuk menjalankan project di Laragon.
 
 ### 1️⃣ Clone Repository
 ```bash
-git clone https://github.com/username-lu/portal-ci4.git
+git clone https://github.com/MAliffadlan/portal-ci4.git
 cd portal-ci4
 ```
 ### 2️⃣ Install Dependencies

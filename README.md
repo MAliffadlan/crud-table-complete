@@ -3,7 +3,8 @@
 Aplikasi **Sistem Informasi Mahasiswa** sederhana namun powerful, dibangun menggunakan **CodeIgniter 4** dan **Bootstrap 5**. Project ini dibuat untuk memenuhi tugas mata kuliah **Web Programming**, dengan fitur lengkap mulai dari manajemen data mahasiswa, statistik dashboard, hingga cetak Kartu Tanda Mahasiswa (KTM).
 
 >
->
+>![Screenshot_5-12-2025_10206_localhost](https://github.com/user-attachments/assets/c5c2dbc6-7794-4891-adb9-234d06eb8fc8)
+
 > <img width="1895" height="940" alt="Screenshot 2025-12-03 141059" src="https://github.com/user-attachments/assets/6db3a36e-8477-48f2-8a6f-7da75326a676" />
 
 >![Screenshot_3-12-2025_14859_localhost](https://github.com/user-attachments/assets/1ca3a5f6-b61e-446a-b1b0-885016d56510)
@@ -16,6 +17,7 @@ Aplikasi **Sistem Informasi Mahasiswa** sederhana namun powerful, dibangun mengg
 
 ## ✨ Fitur Unggulan
 
+- ⚙️ **Login sebagai Mahasiswa dan Administrator
 - 🔐 **Authentication** — Login aman menggunakan password hashing (`password_verify`).
 - 📊 **Dashboard Interaktif** — Grafik statistik jurusan (Chart.js) responsif + dark mode.
 - 📝 **CRUD Lengkap** — Tambah, lihat, edit, dan hapus data mahasiswa (validasi input lengkap).

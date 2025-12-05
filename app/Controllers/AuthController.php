@@ -26,8 +26,8 @@ class AuthController extends BaseController
                     'id'       => $data['id'],
                     'name'     => $data['name'],
                     'username' => $data['username'],
-                    'foto'     => $data['foto'], // Pastikan foto masuk session
-                    'role'     => $data['role'], // <--- PENTING: Simpan Role ke Session
+                    'foto'     => $data['foto'], 
+                    'role'     => $data['role'], 
                     'isLoggedIn' => TRUE
                 ];
                 $session->set($ses_data);
@@ -49,7 +49,6 @@ class AuthController extends BaseController
         return redirect()->to('/login');
     }
 
-    // --- FITUR REGISTER ---
 
     public function register()
     {
@@ -82,7 +81,7 @@ class AuthController extends BaseController
                 'rules'  => 'matches[password]',
                 'errors' => ['matches' => 'Konfirmasi password tidak cocok.']
             ],
-            // Validasi Role: Hanya boleh 'admin' atau 'mahasiswa'
+
             'role' => [
                 'rules' => 'required|in_list[admin,mahasiswa]',
                 'errors' => ['in_list' => 'Pilihan role tidak valid.']
@@ -91,25 +90,20 @@ class AuthController extends BaseController
             return redirect()->back()->withInput();
         }
 
-        // 2. Simpan ke Database
         $model = new UserModel();
         $model->save([
             'name'     => $this->request->getVar('name'),
             'username' => $this->request->getVar('username'),
             'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
-            
-            // INI PENTING: Tangkap pilihan 'admin' atau 'mahasiswa' dari form view
             'role'     => $this->request->getVar('role'), 
             
             'foto'     => 'default.png'
         ]);
 
-        // 3. Sukses
+   
         session()->setFlashdata('msg', 'Registrasi Berhasil! Silakan Login.');
         return redirect()->to('/login');
     }
-
-    // --- FITUR PROFIL ---
 
     public function profile()
     {

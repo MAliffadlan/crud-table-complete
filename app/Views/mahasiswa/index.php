@@ -1,17 +1,17 @@
 <?php
-    // --- LOGIC TEMA OTOMATIS SESUAI ROLE ---
+   
     $role = session()->get('role');
     $isMhs = ($role == 'mahasiswa');
 
-    // Tentukan Warna & Teks Sesuai Role
+ 
     $appTitle = $isMhs ? 'PORTAL MHS' : 'PORTAL APP';
     $menuDataText = $isMhs ? 'Data Teman' : 'Data Mahasiswa';
     
-    // Warna Utama (Mhs: Indigo/Ungu, Admin: Biru CI4)
+  
     $primaryColor = $isMhs ? '#6366f1' : '#4e73df'; 
     $activeGradient = $isMhs ? 'linear-gradient(45deg, #6366f1, #4f46e5)' : 'linear-gradient(45deg, #4e73df, #224abe)';
     $shadowColor = $isMhs ? 'rgba(99, 102, 241, 0.3)' : 'rgba(78, 115, 223, 0.3)';
-    $logoIconColor = $isMhs ? '#6366f1' : '#dc3545'; // Warna Icon Logo
+    $logoIconColor = $isMhs ? '#6366f1' : '#dc3545'; 
 ?>
 <!doctype html>
 <html lang="en" id="htmlPage" data-bs-theme="light">
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     
     <style>
-        /* --- VARIABLE DINAMIS DARI PHP --- */
+      
         :root {
             --theme-primary: <?= $primaryColor ?>;
             --theme-gradient: <?= $activeGradient ?>;
@@ -37,7 +37,7 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
         
-        /* Sidebar */
+       
         .sidebar {
             position: fixed; top: 0; left: 0; height: 100vh; width: 250px;
             background-color: white; 
@@ -66,23 +66,22 @@
         }
         .nav-link-ig:hover { 
             background-color: #f0f2f5; 
-            color: var(--theme-primary); /* Warna Hover Dinamis */
+            color: var(--theme-primary);
             transform: translateX(5px);
         }
         .nav-link-ig i { font-size: 24px; width: 32px; margin-right: 16px; transition: transform 0.2s; }
         
-        /* MENU AKTIF DINAMIS */
+      
         .nav-link-ig.active { 
             font-weight: 800; 
             color: white !important; 
-            background: var(--theme-gradient) !important; /* Gradient Dinamis */
-            box-shadow: 0 4px 15px var(--theme-shadow); /* Shadow Dinamis */
+            background: var(--theme-gradient) !important; 
+            box-shadow: 0 4px 15px var(--theme-shadow);
         }
         
         .nav-link-ig:hover i { transform: scale(1.1); }
         .nav-link-ig span { font-size: 16px; }
 
-        /* Tombol-tombol mengikuti tema */
         .btn-primary {
             background: var(--theme-gradient);
             border: none;
@@ -90,13 +89,13 @@
         .btn-primary:hover {
             background: var(--theme-primary);
         }
-        /* Modal Header Background Fix */
+      
         .modal-header-theme {
             background: var(--theme-gradient) !important;
         }
         .text-theme-primary { color: var(--theme-primary) !important; }
 
-        /* Dark Mode Overrides */
+       
         [data-bs-theme="dark"] body { background-color: #121212; color: #e0e0e0; }
         [data-bs-theme="dark"] .sidebar { background-color: #1e1e1e; box-shadow: 2px 0 20px rgba(0,0,0,0.2); border-right: 1px solid #333; }
         [data-bs-theme="dark"] .logo-app { color: #fff; }
@@ -106,10 +105,10 @@
         [data-bs-theme="dark"] .bg-white { background-color: #1e1e1e !important; color: #fff; }
         [data-bs-theme="dark"] .bg-light { background-color: #2c2c2c !important; color: #fff; border-color: #444 !important; }
         
-        /* FIX: Teks di Dark Mode jadi lebih terang */
+     
         [data-bs-theme="dark"] .text-dark { color: #fff !important; }
-        [data-bs-theme="dark"] .text-muted { color: #bdbdbd !important; } /* Lebih cerah dari #aaa */
-        [data-bs-theme="dark"] .text-secondary { color: #f0f0f0 !important; } /* Paling terang (untuk NIM/HP) */
+        [data-bs-theme="dark"] .text-muted { color: #bdbdbd !important; }
+        [data-bs-theme="dark"] .text-secondary { color: #f0f0f0 !important; } 
 
         [data-bs-theme="dark"] .card { border-color: #333; background-color: #1e1e1e; }
         [data-bs-theme="dark"] .table-light th { background-color: #2c2c2c; color: #fff; border-color: #444; }
@@ -133,13 +132,13 @@
             .nav-link-ig i { margin-right: 0; }
         }
 
-        /* Foto Profil & Animasi */
+       
         .foto-profil { transition: transform 0.3s ease; cursor: pointer; }
         .foto-profil:hover { transform: scale(1.5); z-index: 10; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         .card-animasi { animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
 
-        /* PRINT STYLE */
+       
         .kop-surat { display: none; }
         @media print {
             @page { size: landscape; margin: 1cm; }
@@ -158,10 +157,10 @@
 </head>
 <body>
 
-    <!-- SIDEBAR -->
+   
     <div class="sidebar">
         <a href="/dashboard" class="logo-app">
-            <!-- Icon Dinamis -->
+          
             <i class="bi bi-database-fill-gear me-2" style="color: <?= $logoIconColor ?>;"></i> 
             <span><?= $appTitle ?></span>
         </a>
@@ -173,7 +172,7 @@
             <i class="bi bi-people-fill"></i> <span><?= $menuDataText ?></span>
         </a>
         
-        <!-- Menu Pengaturan (Hanya Admin) -->
+       
         <?php if(!$isMhs) : ?>
         <a href="/settings" class="nav-link-ig">
             <i class="bi bi-gear-fill"></i> <span>Pengaturan</span>
@@ -190,7 +189,7 @@
         </div>
     </div>
 
-    <!-- KONTEN -->
+    
     <div class="content-wrapper">
         <div class="container" style="max-width: 1200px;">
             
@@ -199,7 +198,7 @@
                 <p>Dicetak Otomatis oleh Sistem Portal App pada <?= date('d F Y'); ?></p>
             </div>
 
-            <!-- Judul Dinamis -->
+            
             <h3 class="fw-bold mb-4 d-print-none text-dark">
                 <?= $isMhs ? 'Daftar Teman Kelas' : 'Kelola Data Mahasiswa' ?>
             </h3>
@@ -229,7 +228,7 @@
                             <i class="bi bi-printer-fill me-1"></i> Cetak Laporan
                         </button>
                         
-                        <!-- Tombol Tambah (Hanya Admin) -->
+                       
                         <?php if(!$isMhs) : ?>
                         <a href="/mahasiswa/create" class="btn btn-primary rounded-pill px-4 fw-bold"><i class="bi bi-plus-lg me-1"></i> Tambah</a>
                         <?php endif; ?>
@@ -262,7 +261,7 @@
                                         <button type="button" class="btn btn-success btn-sm rounded-circle me-1" title="Detail" data-bs-toggle="modal" data-bs-target="#detailModal" data-nim="<?= $m['nim']; ?>" data-nama="<?= $m['nama']; ?>" data-jurusan="<?= $m['jurusan']; ?>" data-hp="<?= $m['no_hp']; ?>" data-foto="<?= $m['foto']; ?>"><i class="bi bi-eye-fill"></i></button>
                                         <a href="/mahasiswa/printKTM/<?= $m['id']; ?>" target="_blank" class="btn btn-info btn-sm rounded-circle text-white me-1" title="Cetak KTM"><i class="bi bi-person-badge-fill"></i></a>
                                         
-                                        <!-- Edit & Hapus (Hanya Admin) -->
+                                        
                                         <?php if(!$isMhs) : ?>
                                         <a href="/mahasiswa/edit/<?= $m['id']; ?>" class="btn btn-warning btn-sm text-dark me-1 rounded-circle" title="Edit"><i class="bi bi-pencil-fill"></i></a>
                                         <a href="/mahasiswa/delete/<?= $m['id']; ?>" class="btn btn-danger btn-sm btn-hapus rounded-circle" title="Hapus"><i class="bi bi-trash-fill"></i></a>
@@ -279,7 +278,7 @@
         </div>
     </div>
 
-    <!-- MODAL DETAIL -->
+    
     <div class="modal fade" id="detailModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg rounded-4">
@@ -305,12 +304,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        // Set Modal Header Background Dinamis
+        
         document.addEventListener('DOMContentLoaded', () => {
             const modalHeader = document.querySelector('#detailModal .modal-header');
             if (modalHeader) {
-                modalHeader.classList.remove('bg-primary'); // Hapus kelas bawaan
-                modalHeader.classList.add('modal-header-theme'); // Tambahkan kelas dinamis
+                modalHeader.classList.remove('bg-primary'); 
+                modalHeader.classList.add('modal-header-theme'); 
             }
         });
         

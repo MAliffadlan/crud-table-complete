@@ -139,7 +139,7 @@
 
                         <div class="mb-3">
                             <label class="form-label small fw-bold text-secondary">Nama Lengkap</label>
-                            <input type="text" name="name" class="form-control <?= ($validation->hasError('name')) ? 'is-invalid' : ''; ?>" value="<?= old('name'); ?>" placeholder="Contoh: Budi Santoso">
+                            <input type="text" name="name" class="form-control <?= ($validation->hasError('name')) ? 'is-invalid' : ''; ?>" value="<?= old('name'); ?>" placeholder="Contoh: M Alif fadlan">
                             <div class="invalid-feedback"><?= $validation->getError('name'); ?></div>
                         </div>
 

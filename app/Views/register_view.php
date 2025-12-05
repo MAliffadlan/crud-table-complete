@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Daftar Akun Baru</title>
-    
-    <!-- Google Fonts (Biar sama kayak Dashboard) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
@@ -32,7 +30,7 @@
             overflow: hidden;
         }
 
-        /* --- STYLE 2 KOTAK PILIHAN (Radio Card) --- */
+   
         .role-selector {
             display: flex;
             gap: 15px;
@@ -40,7 +38,7 @@
         }
         
         .role-option-input {
-            display: none; /* Sembunyikan radio button asli */
+            display: none; 
         }
         
         .role-card {
@@ -119,17 +117,15 @@
                     
                     <form action="/register/process" method="post">
                         
-                        <!-- 2 KOTAK PILIHAN (Kiri: Mhs, Kanan: Admin) -->
+           
                         <label class="form-label fw-bold text-dark mb-2">Daftar Sebagai:</label>
                         <div class="role-selector">
-                            <!-- Kotak Kiri (Mahasiswa) -->
+
                             <input type="radio" class="role-option-input" name="role" id="role_mhs" value="mahasiswa" checked>
                             <label class="role-card" for="role_mhs">
                                 <i class="bi bi-mortarboard-fill"></i>
                                 <div class="fw-bold">Mahasiswa</div>
                             </label>
-                            
-                            <!-- Kotak Kanan (Admin) -->
                             <input type="radio" class="role-option-input" name="role" id="role_admin" value="admin">
                             <label class="role-card" for="role_admin">
                                 <i class="bi bi-shield-lock-fill"></i>

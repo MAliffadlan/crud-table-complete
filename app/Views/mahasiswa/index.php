@@ -11,7 +11,7 @@
     $primaryColor = $isMhs ? '#6366f1' : '#4e73df'; 
     $activeGradient = $isMhs ? 'linear-gradient(45deg, #6366f1, #4f46e5)' : 'linear-gradient(45deg, #4e73df, #224abe)';
     $shadowColor = $isMhs ? 'rgba(99, 102, 241, 0.3)' : 'rgba(78, 115, 223, 0.3)';
-    $logoColorClass = $isMhs ? 'text-indigo' : 'text-danger'; // Icon logo
+    $logoIconColor = $isMhs ? '#6366f1' : '#dc3545'; // Warna Icon Logo
 ?>
 <!doctype html>
 <html lang="en" id="htmlPage" data-bs-theme="light">
@@ -90,6 +90,10 @@
         .btn-primary:hover {
             background: var(--theme-primary);
         }
+        /* Modal Header Background Fix */
+        .modal-header-theme {
+            background: var(--theme-gradient) !important;
+        }
         .text-theme-primary { color: var(--theme-primary) !important; }
 
         /* Dark Mode Overrides */
@@ -101,8 +105,12 @@
         [data-bs-theme="dark"] .nav-link-ig.active { background-color: #333; color: var(--theme-primary); }
         [data-bs-theme="dark"] .bg-white { background-color: #1e1e1e !important; color: #fff; }
         [data-bs-theme="dark"] .bg-light { background-color: #2c2c2c !important; color: #fff; border-color: #444 !important; }
+        
+        /* FIX: Teks di Dark Mode jadi lebih terang */
         [data-bs-theme="dark"] .text-dark { color: #fff !important; }
-        [data-bs-theme="dark"] .text-muted { color: #aaa !important; }
+        [data-bs-theme="dark"] .text-muted { color: #bdbdbd !important; } /* Lebih cerah dari #aaa */
+        [data-bs-theme="dark"] .text-secondary { color: #f0f0f0 !important; } /* Paling terang (untuk NIM/HP) */
+
         [data-bs-theme="dark"] .card { border-color: #333; background-color: #1e1e1e; }
         [data-bs-theme="dark"] .table-light th { background-color: #2c2c2c; color: #fff; border-color: #444; }
         [data-bs-theme="dark"] .table { color: #e0e0e0; border-color: #444; }
@@ -154,7 +162,7 @@
     <div class="sidebar">
         <a href="/dashboard" class="logo-app">
             <!-- Icon Dinamis -->
-            <i class="bi bi-database-fill-gear me-2 <?= $logoColorClass ?>"></i> 
+            <i class="bi bi-database-fill-gear me-2" style="color: <?= $logoIconColor ?>;"></i> 
             <span><?= $appTitle ?></span>
         </a>
         
@@ -192,7 +200,7 @@
             </div>
 
             <!-- Judul Dinamis -->
-            <h3 class="fw-bold mb-4 d-print-none">
+            <h3 class="fw-bold mb-4 d-print-none text-dark">
                 <?= $isMhs ? 'Daftar Teman Kelas' : 'Kelola Data Mahasiswa' ?>
             </h3>
 
@@ -275,7 +283,7 @@
     <div class="modal fade" id="detailModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg rounded-4">
-                <div class="modal-header bg-primary text-white border-0">
+                <div class="modal-header modal-header-theme text-white border-0">
                     <h5 class="modal-title fw-bold"><i class="bi bi-person-lines-fill me-2"></i>Detail Mahasiswa</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
@@ -297,6 +305,15 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        // Set Modal Header Background Dinamis
+        document.addEventListener('DOMContentLoaded', () => {
+            const modalHeader = document.querySelector('#detailModal .modal-header');
+            if (modalHeader) {
+                modalHeader.classList.remove('bg-primary'); // Hapus kelas bawaan
+                modalHeader.classList.add('modal-header-theme'); // Tambahkan kelas dinamis
+            }
+        });
+        
         const detailModal = document.getElementById('detailModal')
         detailModal.addEventListener('show.bs.modal', event => {
             const button = event.relatedTarget

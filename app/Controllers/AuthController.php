@@ -1,4 +1,5 @@
 <?php namespace App\Controllers;
+
 use App\Models\UserModel;
 
 class AuthController extends BaseController
@@ -25,6 +26,8 @@ class AuthController extends BaseController
                     'id'       => $data['id'],
                     'name'     => $data['name'],
                     'username' => $data['username'],
+                    'foto'     => $data['foto'], // Pastikan foto masuk session
+                    'role'     => $data['role'], // <--- PENTING: Simpan Role ke Session
                     'isLoggedIn' => TRUE
                 ];
                 $session->set($ses_data);
@@ -46,7 +49,7 @@ class AuthController extends BaseController
         return redirect()->to('/login');
     }
 
-// --- FITUR REGISTER (TAMBAHAN) ---
+    // --- FITUR REGISTER ---
 
     public function register()
     {
@@ -62,7 +65,7 @@ class AuthController extends BaseController
                 'errors' => ['required' => 'Nama Lengkap wajib diisi.']
             ],
             'username' => [
-                'rules'  => 'required|is_unique[users.username]', // Cek biar gak kembar
+                'rules'  => 'required|is_unique[users.username]',
                 'errors' => [
                     'required' => 'Username wajib diisi.',
                     'is_unique' => 'Username sudah dipakai orang lain.'
@@ -78,9 +81,13 @@ class AuthController extends BaseController
             'confpassword' => [
                 'rules'  => 'matches[password]',
                 'errors' => ['matches' => 'Konfirmasi password tidak cocok.']
+            ],
+            // Validasi Role: Hanya boleh 'admin' atau 'mahasiswa'
+            'role' => [
+                'rules' => 'required|in_list[admin,mahasiswa]',
+                'errors' => ['in_list' => 'Pilihan role tidak valid.']
             ]
         ])) {
-            // Kalau gagal, balik lagi ke form register bawa pesan error
             return redirect()->back()->withInput();
         }
 
@@ -89,15 +96,20 @@ class AuthController extends BaseController
         $model->save([
             'name'     => $this->request->getVar('name'),
             'username' => $this->request->getVar('username'),
-            // PENTING: Password wajib di-hash biar aman!
             'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
-            'foto'     => 'default.png' // Foto default
+            
+            // INI PENTING: Tangkap pilihan 'admin' atau 'mahasiswa' dari form view
+            'role'     => $this->request->getVar('role'), 
+            
+            'foto'     => 'default.png'
         ]);
 
-        // 3. Sukses, lempar ke halaman login
+        // 3. Sukses
         session()->setFlashdata('msg', 'Registrasi Berhasil! Silakan Login.');
         return redirect()->to('/login');
     }
+
+    // --- FITUR PROFIL ---
 
     public function profile()
     {
@@ -126,12 +138,12 @@ class AuthController extends BaseController
         ];
 
         if (!empty($password)) {
-            
             $dataUpdate['password'] = password_hash($password, PASSWORD_DEFAULT);
         }
 
         $model->update($id, $dataUpdate);
 
+        // Update session biar nama langsung berubah
         $session->set([
             'name'     => $name,
             'username' => $username

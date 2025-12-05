@@ -205,9 +205,13 @@
         <a href="/mahasiswa" class="nav-link-ig">
             <i class="bi bi-people-fill"></i> <span>Data Mahasiswa</span>
         </a>
+        
+        <!-- Filter Role: Menu Pengaturan hanya untuk Admin -->
+        <?php if(session()->get('role') == 'admin') : ?>
         <a href="/settings" class="nav-link-ig">
             <i class="bi bi-gear-fill"></i> <span>Pengaturan</span>
         </a>
+        <?php endif; ?>
         
         <div class="nav-link-ig mt-3" onclick="toggleTheme()" id="themeToggleBtn">
             <i class="bi bi-moon-stars-fill" id="iconTheme"></i> 
@@ -238,13 +242,17 @@
                         </div>
                         <div class="pe-2 d-none d-md-block">
                             <span class="fw-bold text-dark d-block" style="font-size: 0.9rem; line-height: 1;"><?= session()->get('name'); ?></span>
-                            <small class="text-muted" style="font-size: 0.75rem;">Administrator</small>
+                            <!-- Menampilkan Role user yang sedang login -->
+                            <small class="text-muted" style="font-size: 0.75rem;"><?= ucfirst(session()->get('role')); ?></small>
                         </div>
                         <i class="bi bi-chevron-down ms-2 text-muted" style="font-size: 0.8rem;"></i>
                     </div>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-custom">
+                        <!-- Menu Pengaturan di Dropdown hanya untuk Admin -->
+                        <?php if(session()->get('role') == 'admin') : ?>
                         <li><a class="dropdown-item" href="/settings"><i class="bi bi-gear me-2"></i> Pengaturan Akun</a></li>
                         <li><hr class="dropdown-divider"></li>
+                        <?php endif; ?>
                         <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
                     </ul>
                 </div>
@@ -326,10 +334,10 @@
             }, 500);
         });
 
-        // Greeting Script (SUDAH DI-UPDATE SESUAI REQUEST)
+        // Greeting Script
         const hour = new Date().getHours();
         const greetingElement = document.getElementById('greetingText');
-        const userName = "<?= session()->get('name'); ?>"; // Mengambil nama dari session PHP
+        const userName = "<?= session()->get('name'); ?>"; 
         
         let greeting = 'Dashboard Overview';
         if (hour < 12) greeting = 'Selamat Pagi, ' + userName + '!';

@@ -16,6 +16,7 @@ Aplikasi **Sistem Informasi Mahasiswa** sederhana namun powerful, dibangun mengg
 
 ## ✨ Fitur Unggulan
 
+- ⚙️ **Login sebagai Mahasiswa dan Administrator
 - 🔐 **Authentication** — Login aman menggunakan password hashing (`password_verify`).
 - 📊 **Dashboard Interaktif** — Grafik statistik jurusan (Chart.js) responsif + dark mode.
 - 📝 **CRUD Lengkap** — Tambah, lihat, edit, dan hapus data mahasiswa (validasi input lengkap).

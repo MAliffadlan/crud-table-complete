@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
@@ -30,7 +29,6 @@
             font-family: 'Poppins', sans-serif;
         }
         
-        /* Preloader Styles */
         #preloader {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -50,7 +48,6 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* Sidebar Styles */
         .sidebar {
             position: fixed;
             top: 0; left: 0; height: 100vh; width: 250px;
@@ -108,7 +105,6 @@
             box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
         }
 
-        /* Profile Dropdown Styles */
         .profile-header {
             background: white;
             padding: 6px 12px 6px 6px;
@@ -145,7 +141,6 @@
             color: #dc3545 !important;
         }
 
-        /* Pulse Animation for Online Status */
         @keyframes pulse-green {
             0% { box-shadow: 0 0 0 0 rgba(25, 135, 84, 0.7); }
             70% { box-shadow: 0 0 0 10px rgba(25, 135, 84, 0); }
@@ -160,7 +155,6 @@
             animation: pulse-green 2s infinite;
         }
 
-        /* Dark Mode Overrides */
         [data-bs-theme="dark"] body { background-color: #121212; color: #e0e0e0; }
         [data-bs-theme="dark"] #preloader { background-color: #121212; }
         [data-bs-theme="dark"] .sidebar { background-color: #1e1e1e; box-shadow: 2px 0 20px rgba(0,0,0,0.2); border-right: 1px solid #333; }
@@ -189,7 +183,6 @@
 </head>
 <body>
     
-    <!-- Preloader -->
     <div id="preloader">
         <div class="spinner-custom"></div>
     </div>
@@ -206,7 +199,6 @@
             <i class="bi bi-people-fill"></i> <span>Data Mahasiswa</span>
         </a>
         
-        <!-- Filter Role: Menu Pengaturan hanya untuk Admin -->
         <?php if(session()->get('role') == 'admin') : ?>
         <a href="/settings" class="nav-link-ig">
             <i class="bi bi-gear-fill"></i> <span>Pengaturan</span>
@@ -234,7 +226,6 @@
                     <p class="text-muted mb-0">Selamat datang kembali di panel admin.</p>
                 </div>
                 
-                <!-- Profil Dropdown -->
                 <div class="dropdown">
                     <div class="d-flex align-items-center profile-header" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-2 text-primary">
@@ -242,13 +233,11 @@
                         </div>
                         <div class="pe-2 d-none d-md-block">
                             <span class="fw-bold text-dark d-block" style="font-size: 0.9rem; line-height: 1;"><?= session()->get('name'); ?></span>
-                            <!-- Menampilkan Role user yang sedang login -->
                             <small class="text-muted" style="font-size: 0.75rem;"><?= ucfirst(session()->get('role')); ?></small>
                         </div>
                         <i class="bi bi-chevron-down ms-2 text-muted" style="font-size: 0.8rem;"></i>
                     </div>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-custom">
-                        <!-- Menu Pengaturan di Dropdown hanya untuk Admin -->
                         <?php if(session()->get('role') == 'admin') : ?>
                         <li><a class="dropdown-item" href="/settings"><i class="bi bi-gear me-2"></i> Pengaturan Akun</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -259,7 +248,6 @@
             </div>
 
             <div class="row mb-4">
-                <!-- Card Total Mahasiswa -->
                 <div class="col-md-6 mb-3">
                     <div class="card card-estetik h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, #4e73df 0%, #224abe 100%); color: white;">
                         <div class="card-body p-4 position-relative z-1">
@@ -276,12 +264,10 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Dekorasi Background -->
+                   
                         <i class="bi bi-mortarboard-fill position-absolute text-white" style="font-size: 10rem; opacity: 0.1; right: -30px; bottom: -40px; transform: rotate(-15deg);"></i>
                     </div>
                 </div>
-
-                <!-- Card Status Sistem -->
                 <div class="col-md-6 mb-3">
                     <div class="card card-estetik h-100 border-start border-success border-5">
                         <div class="card-body p-4">
@@ -321,11 +307,11 @@
         </div>
     </div>
 
-    <!-- Bootstrap Bundle JS (Wajib untuk Dropdown) -->
+   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Preloader Script
+        
         window.addEventListener("load", function () {
             var preloader = document.getElementById("preloader");
             preloader.style.opacity = "0";
@@ -334,7 +320,7 @@
             }, 500);
         });
 
-        // Greeting Script
+        
         const hour = new Date().getHours();
         const greetingElement = document.getElementById('greetingText');
         const userName = "<?= session()->get('name'); ?>"; 
@@ -346,7 +332,7 @@
         
         greetingElement.innerText = greeting;
 
-        // Chart Data
+       
         const labelData = <?= $label_jurusan; ?>;
         const jumlahData = <?= $data_jumlah; ?>;
         const ctx = document.getElementById('grafikJurusan');
@@ -389,7 +375,7 @@
             }
         });
 
-        // Dark Mode Logic
+       
         const html = document.getElementById('htmlPage');
         const icon = document.getElementById('iconTheme');
         const text = document.getElementById('textTheme');

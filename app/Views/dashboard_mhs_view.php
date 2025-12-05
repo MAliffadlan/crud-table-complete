@@ -4,19 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard Mahasiswa</title>
-    
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Bootstrap & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">      
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     
     <style>
         :root {
-            --primary-color: #6366f1; /* Warna Indigo yang lebih fresh buat Mhs */
+            --primary-color: #6366f1;
             --secondary-color: #858796;
             --bg-light: #f3f4f6;
         }
@@ -29,7 +25,7 @@
 
         h1, h2, h3, h4, h5, h6, .logo-app { font-family: 'Poppins', sans-serif; }
         
-        /* Layout */
+      
         .sidebar {
             position: fixed; top: 0; left: 0; height: 100vh; width: 250px;
             background-color: white; box-shadow: 2px 0 20px rgba(0,0,0,0.05);
@@ -38,7 +34,7 @@
         }
         .content-wrapper { margin-left: 250px; padding: 30px; min-height: 100vh; }
 
-        /* Logo & Nav */
+    
         .logo-app {
             font-size: 20px; font-weight: 700; margin-bottom: 40px; padding-left: 12px;
             display: flex; align-items: center; text-decoration: none; color: var(--primary-color);
@@ -55,7 +51,7 @@
         }
         .nav-link-ig.active i { color: white; }
 
-        /* Cards */
+        
         .card-welcome {
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             border: none; border-radius: 20px; color: white;
@@ -68,7 +64,7 @@
         }
         .card-info:hover { transform: translateY(-5px); }
 
-        /* Dark Mode */
+
         [data-bs-theme="dark"] body { background-color: #121212; color: #e0e0e0; }
         [data-bs-theme="dark"] .sidebar { background-color: #1e1e1e; border-right: 1px solid #333; }
         [data-bs-theme="dark"] .card-info { background-color: #1e1e1e; border: 1px solid #333; }
@@ -96,7 +92,7 @@
         <a href="/dashboard" class="nav-link-ig active">
             <i class="bi bi-grid-fill"></i> <span>Dashboard</span>
         </a>
-        <!-- Mahasiswa cuma bisa lihat data, gak ada settings -->
+        
         <a href="/mahasiswa" class="nav-link-ig">
             <i class="bi bi-people"></i> <span>Data Teman</span>
         </a>
@@ -111,18 +107,18 @@
     <div class="content-wrapper">
         <div class="container-fluid" style="max-width: 1000px;">
             
-            <!-- HEADER -->
+       
             <div class="d-flex justify-content-between align-items-center mb-5">
                 <div>
                     <h4 class="fw-bold mb-1 text-dark">Student Area</h4>
                     <p class="text-muted mb-0">Panel khusus mahasiswa</p>
                 </div>
                 <div class="d-flex align-items-center gap-3">
-                    <!-- Dark Mode Toggle -->
+               
                     <button class="btn btn-light rounded-circle shadow-sm" onclick="toggleTheme()">
                         <i class="bi bi-moon-stars-fill" id="iconTheme"></i>
                     </button>
-                    <!-- Profil -->
+                
                     <div class="d-flex align-items-center bg-white px-3 py-2 rounded-pill shadow-sm border border-light-subtle">
                         <div class="bg-indigo-100 rounded-circle p-1 me-2">
                             <i class="bi bi-person-circle fs-5 text-indigo"></i>
@@ -132,7 +128,7 @@
                 </div>
             </div>
 
-            <!-- WELCOME CARD -->
+         
             <div class="card card-welcome mb-4 p-4">
                 <div class="row align-items-center position-relative z-1">
                     <div class="col-md-8">
@@ -144,13 +140,13 @@
                         <i class="bi bi-backpack4-fill" style="font-size: 8rem; opacity: 0.2;"></i>
                     </div>
                 </div>
-                <!-- Hiasan background -->
+           
                 <div class="position-absolute top-0 end-0 p-5 opacity-10">
                     <i class="bi bi-mortarboard-fill display-1 text-white"></i>
                 </div>
             </div>
 
-            <!-- INFO STATUS (Dummy Data biar keren) -->
+            
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card card-info h-100 p-4">
@@ -203,7 +199,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Dark Mode Logic (Sama kayak admin biar konsisten)
         const html = document.getElementById('htmlPage');
         const icon = document.getElementById('iconTheme');
         

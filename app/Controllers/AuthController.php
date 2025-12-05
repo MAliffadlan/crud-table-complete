@@ -142,8 +142,6 @@ class AuthController extends BaseController
         }
 
         $model->update($id, $dataUpdate);
-
-        // Update session biar nama langsung berubah
         $session->set([
             'name'     => $name,
             'username' => $username

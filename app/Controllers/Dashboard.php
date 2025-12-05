@@ -6,23 +6,17 @@ class Dashboard extends BaseController
 {
     public function index()
     {
-        // CEK ROLE USER
+       
         $role = session()->get('role');
 
-        // JIKA MAHASISWA, LEMPAR KE TAMPILAN KHUSUS MAHASISWA
+       
         if ($role == 'mahasiswa') {
             return view('dashboard_mhs_view');
-        }
-
-        // --- LOGIC KHUSUS ADMIN (HITUNG STATISTIK) ---
-        // Code di bawah ini cuma jalan kalau yang login itu ADMIN
-        
+        }   
         $model = new MahasiswaModel();
 
-        // 1. Ambil data total mahasiswa
         $totalMahasiswa = $model->countAll();
 
-        // 2. Ambil data statistik per jurusan
         $hasil = $model->select('jurusan, COUNT(*) as jumlah')
                        ->groupBy('jurusan')
                        ->findAll();
@@ -41,7 +35,6 @@ class Dashboard extends BaseController
             'data_jumlah'     => json_encode($dataJumlah)
         ];
 
-        // TAMPILKAN DASHBOARD ADMIN YANG LENGKAP
         return view('dashboard_view', $data);
     }
 }
